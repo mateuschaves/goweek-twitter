@@ -7,6 +7,9 @@
     "start": "nodemon src/index.js",
     "dist": "node src/index.js"
   },
+  "engines": {
+    "node": "10.3.0"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.16.4",
