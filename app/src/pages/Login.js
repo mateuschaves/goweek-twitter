@@ -23,7 +23,9 @@ export default class Login extends Component {
   };
 
   async componentDidMount() {
-    const username = AsyncStorage.getItem("@GoTwitter:username");
+    const username = await AsyncStorage.getItem("@GoTwitter:username");
+
+    console.log(username);
 
     if (username) {
       this.navigateToTimeline();
