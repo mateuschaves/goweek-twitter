@@ -1,6 +1,6 @@
-import axios from 'axios'
+import axios from "axios";
 
-export const baseURL = 'https://goweek-twitter-backend.herokuapp.com'
-export const api = axios.create({ baseURL })
+export const baseURL = "http://localhost:5000";
+export const api = axios.create({ baseURL });
 
-export default api
+export default api;
