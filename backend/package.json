@@ -8,7 +8,7 @@
     "dist": "node src/index.js"
   },
   "engines": {
-    "node": "10.3.0"
+    "node": "10.15.1"
   },
   "dependencies": {
     "cors": "^2.8.5",
