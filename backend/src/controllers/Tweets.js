@@ -9,7 +9,7 @@ module.exports = {
   },
 
   async store(req, res) {
-    const emotions = [];
+    let emotion = { score: -1, emotion: "null" };
     const tags = ["sadness", "joy", "fear", "anger"];
 
     const nlu = new NaturalLanguageUnderstandingV1({
@@ -24,7 +24,7 @@ module.exports = {
           emotion: {}
         }
       })
-      .then(result => {
+      .then(async result => {
         const {
           emotion: {
             document: {
@@ -33,19 +33,22 @@ module.exports = {
           }
         } = result;
 
-        [sadness, joy, fear, anger].map((emotion, i) => {
-          if (emotion > 0.3) emotions.push(tags[i]);
-        });
-
-        console.log(emotions);
+        const scores = [sadness, joy, fear, anger];
+        for (let i = 0; i < 4; i++) {
+          if (scores[i] > emotion.score) {
+            emotion.score = scores[i];
+            emotion.emotion = tags[i];
+            req.body.emotion = emotion;
+          }
+        }
+        const tweet = await Tweet.create(req.body);
+        req.io.emit("tweet", tweet);
+        return res.json(tweet);
       })
-      .catch(err => {
-        console.log("error:", err);
+      .catch(async _ => {
+        const tweet = await Tweet.create(req.body);
+        req.io.emit("tweet", tweet);
+        return res.json(tweet);
       });
-    const tweet = await Tweet.create(req.body);
-
-    req.io.emit("tweet", tweet);
-
-    return res.json(tweet);
   }
 };
