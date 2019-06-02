@@ -5,7 +5,8 @@ import {
   StyleSheet,
   TextInput,
   KeyboardAvoidingView,
-  TouchableOpacity
+  TouchableOpacity,
+  Switch
 } from "react-native";
 import { StackActions, NavigationActions } from "react-navigation";
 
@@ -19,13 +20,14 @@ export default class Login extends Component {
   };
 
   state = {
-    username: ""
+    username: "",
+    switch: true,
+    sex: "Feminino",
+    age: null
   };
 
   async componentDidMount() {
     const username = await AsyncStorage.getItem("@GoTwitter:username");
-
-    console.log(username);
 
     if (username) {
       this.navigateToTimeline();
@@ -37,11 +39,13 @@ export default class Login extends Component {
   };
 
   handleLogin = async () => {
-    const { username } = this.state;
+    const { username, age, sex } = this.state;
 
     if (!username.length) return;
 
     await AsyncStorage.setItem("@GoTwitter:username", username);
+    await AsyncStorage.setItem("@GoTwitter:age", age);
+    await AsyncStorage.setItem("@GoTwitter:sex", sex);
 
     this.navigateToTimeline();
   };
@@ -70,6 +74,35 @@ export default class Login extends Component {
             onChangeText={this.handleInputChange}
             returnKeyType="send"
             onSubmitEditing={this.handleLogin}
+          />
+
+          <TextInput
+            style={styles.input}
+            placeholder="Idade"
+            keyboardType={"numeric"}
+            value={this.state.age}
+            onChangeText={age => this.setState({ age })}
+          />
+
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: "600",
+              textAlign: "center",
+              marginTop: 15,
+              marginBottom: 15
+            }}
+          >
+            {this.state.sex}
+          </Text>
+          <Switch
+            value={this.state.switch}
+            onValueChange={() =>
+              this.setState({
+                switch: !this.state.switch,
+                sex: !this.state.switch ? "Feminino" : "Masculino"
+              })
+            }
           />
 
           <TouchableOpacity style={styles.button} onPress={this.handleLogin}>

@@ -31,8 +31,10 @@ export default class New extends Component {
 
     const content = this.state.newTweet;
     const author = await AsyncStorage.getItem("@GoTwitter:username");
+    const age = await AsyncStorage.getItem("@GoTwitter:age");
+    const sex = await AsyncStorage.getItem("@GoTwitter:sex");
 
-    api.post("tweets", { author, content });
+    api.post("tweets", { author, content, age, sex });
   };
 
   handleInputChange = newTweet => {
