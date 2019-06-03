@@ -3,8 +3,6 @@ import React, { Component } from "react";
 import "./Login.css";
 import twitterLogo from "../twitter.svg";
 
-import Switch from "react-switch";
-
 export default class Login extends Component {
   state = {
     username: "",
@@ -19,11 +17,13 @@ export default class Login extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const { username } = this.state;
+    const { username, age, sex } = this.state;
 
     if (!username.length) return;
 
     localStorage.setItem("@GoTwitter:username", username);
+    localStorage.setItem("@GoTwitter:age", age);
+    localStorage.setItem("@GoTwitter:sex", sex);
 
     this.props.history.push("/timeline");
   };

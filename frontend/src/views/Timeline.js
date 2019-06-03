@@ -1,61 +1,64 @@
-import React, { Component } from 'react'
-import { api, baseURL } from '../services/api'
-import socket from 'socket.io-client'
+import React, { Component } from "react";
+import { api, baseURL } from "../services/api";
+import socket from "socket.io-client";
 
-import './Timeline.css'
-import twitterLogo from '../twitter.svg'
+import "./Timeline.css";
+import twitterLogo from "../twitter.svg";
 
-import Tweet from '../components/Tweet'
+import Tweet from "../components/Tweet";
 
 export default class Timeline extends Component {
   state = {
     tweets: [],
-    newTweet: ''
-  }
+    newTweet: ""
+  };
 
-  async componentDidMount () {
-    this.subscribeToEvents()
-    const response = await api.get('tweets')
+  async componentDidMount() {
+    this.subscribeToEvents();
+    const response = await api.get("tweets");
 
-    this.setState({ tweets: response.data })
+    this.setState({ tweets: response.data });
   }
 
   subscribeToEvents = () => {
-    const io = socket(baseURL)
+    const io = socket(baseURL);
 
-    io.on('tweet', data => {
+    io.on("tweet", data => {
       this.setState({
-        tweets: [ data, ...this.state.tweets ]
-      })
-    })
-    io.on('like', data => {
+        tweets: [data, ...this.state.tweets]
+      });
+    });
+    io.on("like", data => {
       this.setState({
         tweets: this.state.tweets.map(tweet =>
           tweet._id === data._id ? data : tweet
         )
-      })
-    })
-  }
+      });
+    });
+  };
 
   handleInputChange = e => {
-    this.setState({ newTweet: e.target.value })
-  }
+    this.setState({ newTweet: e.target.value });
+  };
 
   handleNewTweet = async e => {
-    if (e.keyCode !== 13) return
-    e.preventDefault()
-    
-    const content = this.state.newTweet
-    const author = localStorage.getItem('@GoTwitter:username')
-    this.setState({ newTweet: '' })
+    if (e.keyCode !== 13) return;
+    e.preventDefault();
 
-    await api.post('tweets', { author, content })
-  }
+    const content = this.state.newTweet;
+    const author = localStorage.getItem("@GoTwitter:username");
+    const age = localStorage.getItem("@GoTwitter:age");
+    const sex = localStorage.getItem("@GoTwitter:sex");
 
-  render () {
+    this.setState({ newTweet: "" });
+
+    await api.post("tweets", { author, content, age, sex });
+  };
+
+  render() {
     return (
       <div className="timeline-wrapper">
-        <img height={24} src={twitterLogo} alt="Logotipo do Twitter"/>
+        <img height={24} src={twitterLogo} alt="Logotipo do Twitter" />
 
         <form>
           <textarea
@@ -68,10 +71,10 @@ export default class Timeline extends Component {
 
         <ul className="tweet-list">
           {this.state.tweets.map(tweet => (
-            <Tweet tweet={tweet} key={tweet._id}/>
+            <Tweet tweet={tweet} key={tweet._id} />
           ))}
         </ul>
       </div>
-    )
+    );
   }
 }
