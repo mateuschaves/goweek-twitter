@@ -24,6 +24,17 @@
   height: 44px;
   padding: 0 15px;
   font-size: 14px;
+  margin-top: 15px;
+}
+
+.login-wrapper form select {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  height: 44px;
+  padding: 0 15px;
+  font-size: 14px;
+  margin-top: 15px;
 }
 
 .login-wrapper form button {

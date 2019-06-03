@@ -1,42 +1,69 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-import './Login.css'
-import twitterLogo from '../twitter.svg'
+import "./Login.css";
+import twitterLogo from "../twitter.svg";
+
+import Switch from "react-switch";
 
 export default class Login extends Component {
   state = {
-    username: ''
-  }
+    username: "",
+    sex: "Feminino",
+    age: null
+  };
 
   handleInputChange = e => {
-    this.setState({ username: e.target.value })
-  }
+    this.setState({ username: e.target.value });
+  };
 
   handleSubmit = e => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const { username } = this.state
+    const { username } = this.state;
 
-    if (!username.length) return
+    if (!username.length) return;
 
-    localStorage.setItem('@GoTwitter:username', username)
+    localStorage.setItem("@GoTwitter:username", username);
 
-    this.props.history.push('/timeline')
-  }
+    this.props.history.push("/timeline");
+  };
 
-  render () {
+  render() {
     return (
       <div className="login-wrapper">
-        <img src={twitterLogo} alt="Logotipo do Twitter"/>
+        <img src={twitterLogo} alt="Logotipo do Twitter" />
         <form onSubmit={this.handleSubmit}>
           <input
             placeholder="Nome de usuário"
             value={this.state.username}
             onChange={this.handleInputChange}
           />
+
+          <input
+            placeholder="Idade"
+            value={this.state.age}
+            type="number"
+            maxLength={2}
+            max={100}
+            onChange={e => this.setState({ age: e.target.value })}
+          />
+
+          <label>
+            <select
+              style={{
+                width: 280
+              }}
+              value={this.state.sex}
+              onChange={e => this.setState({ sex: e.target.value })}
+            >
+              <option value="Feminino">Feminino</option>
+              <option value="Masculino">Masculino</option>
+            </select>
+          </label>
+
           <button type="submit">Entrar</button>
         </form>
       </div>
-    )
+    );
   }
 }
