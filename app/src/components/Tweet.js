@@ -30,31 +30,35 @@ export default class Tweet extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    height: 110,
     borderBottomWidth: 1,
-    borderColor: "#eee"
+    backgroundColor: "rgb(28, 41, 56)"
   },
 
   author: {
+    marginTop: 10,
+    marginLeft: 20,
     fontSize: 16,
     fontWeight: "bold",
-    color: "#1C2022"
+    color: "white"
   },
 
   content: {
+    marginLeft: 20,
     fontSize: 15,
     lineHeight: 20,
-    color: "#1C2022",
+    color: "white",
     marginVertical: 10
   },
 
   likeButton: {
+    marginLeft: 20,
     flexDirection: "row",
     alignItems: "center"
   },
 
   likeText: {
     color: "#999",
-    marginLeft: 5
+    marginLeft: 20
   }
 });

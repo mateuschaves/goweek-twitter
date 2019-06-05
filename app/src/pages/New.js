@@ -73,7 +73,7 @@ export default class New extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFF"
+    backgroundColor: "rgb(28, 41, 56)"
   },
 
   header: {
@@ -102,6 +102,6 @@ const styles = StyleSheet.create({
   input: {
     margin: 20,
     fontSize: 16,
-    color: "#333"
+    color: "white"
   }
 });

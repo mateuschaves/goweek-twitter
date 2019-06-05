@@ -70,6 +70,7 @@ export default class Login extends Component {
           <TextInput
             style={styles.input}
             placeholder="Nome de usuário"
+            placeholderTextColor="white"
             value={this.state.username}
             onChangeText={this.handleInputChange}
             returnKeyType="send"
@@ -78,6 +79,7 @@ export default class Login extends Component {
 
           <TextInput
             style={styles.input}
+            placeholderTextColor="#fff"
             placeholder="Idade"
             keyboardType={"numeric"}
             value={this.state.age}
@@ -90,7 +92,8 @@ export default class Login extends Component {
               fontWeight: "600",
               textAlign: "center",
               marginTop: 15,
-              marginBottom: 15
+              marginBottom: 15,
+              color: "#fff"
             }}
           >
             {this.state.sex}
@@ -117,7 +120,7 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFF"
+    backgroundColor: "rgb(16, 23, 30)"
   },
 
   content: {
@@ -134,7 +137,8 @@ const styles = StyleSheet.create({
     height: 44,
     paddingHorizontal: 15,
     alignSelf: "stretch",
-    marginTop: 30
+    marginTop: 30,
+    color: "white"
   },
 
   button: {
